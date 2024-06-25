@@ -1,0 +1,104 @@
+.editor {
+    height: 300px;
+}
+
+.ck-editor__editable {
+    min-height: 300px;
+}
+
+.App {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-field {
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ckeditor {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 300px;
+}
+
+.typed-output {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #0c0909;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+}
+
+.update-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .col-form-label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .form-container {
+        padding: 10px;
+    }
+
+    .input-field {
+        padding: 8px;
+    }
+
+    .update-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+@keyframes arrowBounce {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .arrow-animate {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    color: green;
+    animation: arrowBounce 0.5s infinite;
+  }
+  .text-success {
+    color: green;
+  }
+  
+  .text-danger {
+    color: red;
+  }
