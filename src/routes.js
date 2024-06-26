@@ -1,19 +1,26 @@
 import React from 'react'
-import Betlist from './views/theme/betlist/Betlist'
+
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
-const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
+const Login = React.lazy(() => import('./views/login/Login'))
+const User = React.lazy(() => import('./views/user/User'));
+const Slotlist = React.lazy(() => import('./views/slotlist/Slotlist'))
+const UserProfile = React.lazy(() => import('./views/userprofile/Userprofile'))
+const AddSlot = React.lazy(() => import('./views/slot/AddSlot'))
+const SlotDetail = React.lazy(() => import('./views/slotdetail/Slotdetail'))
 // Notifications
 
-
 const routes = [
+ 
+
   { path: '/', exact: true, name: 'Home' },
+  { path: '/login', name: 'Login', element: Login,exact: true },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/theme', name: 'Bet List', element: Colors, exact: true },
-  { path: '/theme/user-management', name: 'User', element: Colors },
-  { path: '/theme/bet-list', name: 'User', element: Betlist },
-  { path: '/theme/content', name: 'Content', element: Typography },
+   { path: '/user', name: 'User', element: User },
+   { path: '/slotlist', name: 'Slotlist', element: Slotlist },
+   { path: '/slot-detail', name: 'SlotDetail', element: SlotDetail },
+   { path: '/userprofile/:id', name: 'UserProfile', element: UserProfile },
+   { path: '/slot', name: 'AddSlot', element: AddSlot }
  
 ]
 

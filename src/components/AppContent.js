@@ -1,11 +1,18 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { CContainer, CSpinner } from '@coreui/react'
+import { CContainer, CSpinner } from '@coreui/react';
+import {getToken} from '../endpoints';
+
+
 
 // routes config
 import routes from '../routes'
 
 const AppContent = () => {
+  const [isToken, setToken] = useState(localStorage.getItem("token"));
+
+
+  
   return (
     <CContainer className="px-4" lg>
       <Suspense fallback={<CSpinner color="primary" />}>
@@ -23,7 +30,12 @@ const AppContent = () => {
               )
             )
           })}
-          <Route path="/" element={<Navigate to="dashboard" replace />} />
+          {/* <Route path="/" element={<Navigate to="login" replace />} /> */}
+          {isToken ? (
+        <Route path="/" element={<Navigate to="dashboard" replace  />} />
+      ) : (
+        <Route path="/" element={<Navigate to="login" replace />} />
+      )}
         </Routes>
       </Suspense>
     </CContainer>
