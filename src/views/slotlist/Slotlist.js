@@ -123,21 +123,18 @@ const User = () => {
                     <CTableRow key={user._id}>
                       <CTableDataCell className="text-center">{user?.slotNumber}</CTableDataCell>
                       <CTableDataCell className="text-center">
-                        <a
-                          className="btn-link"
-                          style={{ cursor: 'pointer', textDecoration: 'none' }}
-                        >
+                       
                           {user.slotName}
-                        </a>
+                       
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        {new Date(user?.startDate).toLocaleString()}
+                      {new Date(user?.startDate).toLocaleDateString()}
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        {new Date(user?.startTime).toLocaleString()}
+                        {new Date(user?.startTime).toLocaleTimeString()}
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        {new Date(user?.endTime).toLocaleString()}
+                        {new Date(user?.endTime).toLocaleTimeString()}
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
                         {user?.status}

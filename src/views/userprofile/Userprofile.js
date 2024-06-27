@@ -75,24 +75,24 @@ const Userprofile = () => {
   return (
     <div>
      <CRow>
-      <CCol xs={3}>
-        <CWidgetStatsF
-          className="mb-3"
-          color="primary"
-          icon={<CImage src={userImage} alt="User Icon" width={24} height={24} />}
-          padding={false}
-          title="User Id"
-          value={userId}
-        />
-      </CCol>
+     <CCol xs={3}>
+  <CWidgetStatsF
+    className="mb-3"
+    color="primary"
+
+    icon={<CImage src={userImage} alt="User Icon" width={24} height={24} />}
+    padding={false}
+    value={<div><span className="text-dark">User Id</span><br /><span >{userId}</span></div>}
+  />
+</CCol>
       <CCol xs={3}>
         <CWidgetStatsF
           className="mb-3"
           color="primary"
           icon={<CImage src={nameImage} alt="Name Icon" width={24} height={24} />}
           padding={false}
-          title="Name"
-          value={name}
+          value={<div><span className="text-dark">Name</span><br /><span>{name}</span></div>}
+
         />
       </CCol>
       
@@ -102,8 +102,9 @@ const Userprofile = () => {
           color="primary"
           icon={<CImage src={mobileImage} alt="Mobile Number Icon" width={24} height={24} />}
           padding={false}
-          title="Mobile Number"
-          value={mobile}
+          value={<div><span className="text-dark">Mobile Number</span><br /><span>{mobile}</span></div>}
+
+          
         />
         </CCol>
          <CCol xs={3}>
@@ -112,8 +113,16 @@ const Userprofile = () => {
           color="primary"
           icon={<CImage src={balanceImage} alt="Balance Icon" width={24} height={24} />}
           padding={false}
-          title="Winning Balance"
-          value={winningBalance}
+          value={<div><span className="text-dark">Winning Balance</span><br /><span
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: '100px',
+              display: 'block'
+            }} 
+           >{winningBalance}</span></div>}
+
         />
       </CCol>
       <CCol xs={3}>
@@ -122,12 +131,17 @@ const Userprofile = () => {
     color="primary"
     icon={<CImage src={emailImage} className='' alt="Email Icon" width={28} height={24} />}
     padding={false}
-    title="Email"
-    value={
-      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-        {email}
-      </span>
-    }
+    value={<div><span className="text-dark">Email</span><br /> <span 
+ style={{
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          maxWidth: '100px',
+          display: 'block'
+        }}    >
+    {email}
+  </span></div>}
+
   />
 </CCol>
       {/* <CCol xs={3}>

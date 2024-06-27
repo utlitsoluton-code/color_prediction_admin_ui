@@ -188,7 +188,7 @@ const User = () => {
                   <CTableRow key={user.userId}>
                     <CTableDataCell className="text-center">{user?.userId}</CTableDataCell>
                     <CTableDataCell className="text-center">
-                      <a className="btn-link" style={{cursor:"pointer", textDecoration:"none"}} onClick={navigateToBetList}>{user.name}</a>
+                      {user?.name}
                     </CTableDataCell>
                     <CTableDataCell className="text-center">{user?.email}</CTableDataCell>
                     <CTableDataCell className="text-center">{user?.mobile}</CTableDataCell>
