@@ -119,7 +119,9 @@ const User = () => {
                 </CTableHead>
                 <CTableBody>
                   {/* Render rows dynamically from userData */}
-                  {userData.map((user) => (
+                  {
+                     userData.length > 0 ? (
+                  userData.map((user) => (
                     <CTableRow key={user._id}>
                       <CTableDataCell className="text-center">{user?.slotNumber}</CTableDataCell>
                       <CTableDataCell className="text-center">
@@ -136,15 +138,28 @@ const User = () => {
                       <CTableDataCell className="text-center">
                         {new Date(user?.endTime).toLocaleTimeString()}
                       </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        {user?.status}
-                     
+                      <CTableDataCell  className="text-center">
+                      <CButton style={{
+      backgroundColor: user?.status === 'OPEN' ? 'green' : 'red',
+      color: 'white' // add this to make the text visible
+    }}>
+                       {user?.status}
+                        </CButton>
+
                       </CTableDataCell>
                       {/* <CTableDataCell className="text-center">
                         <CButton onClick={() => handleStatusChange(user._id, user?.status)}>{user?.status === 'OPEN' ? 'Close' : 'Open'}</CButton>
                       </CTableDataCell> */}
                     </CTableRow>
-                  ))}
+                  ))
+                ) : (
+                  <CTableRow>
+                    <CTableDataCell colSpan={6} className="text-center">
+                      No Slot record found.
+                    </CTableDataCell>
+                  </CTableRow>
+                )
+                }
                 </CTableBody>
               </CTable>
             </CCardBody>

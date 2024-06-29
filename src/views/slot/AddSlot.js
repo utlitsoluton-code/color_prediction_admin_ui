@@ -89,7 +89,7 @@ function AddSlot() {
             name="slotName"
             className="form-control"
             id="exampleInputEmail1"
-            placeholder="Slot Number"
+            placeholder="Slot Name"
             aria-describedby="emailHelp"
             onChange={handleChange}
             value={slotValue.slotName}

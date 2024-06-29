@@ -170,6 +170,9 @@ const User = () => {
                 <CTableRow>
                   <CTableHeaderCell className="bg-body-tertiary text-center">User ID</CTableHeaderCell>
                   <CTableHeaderCell className="bg-body-tertiary text-center">Name</CTableHeaderCell>
+                  <CTableHeaderCell className="bg-body-tertiary text-center">Referral Code</CTableHeaderCell>
+                  <CTableHeaderCell className="bg-body-tertiary text-center">Referred By</CTableHeaderCell>
+
                   <CTableHeaderCell className="bg-body-tertiary text-center">Email</CTableHeaderCell>
                   <CTableHeaderCell className="bg-body-tertiary text-center">Mobile</CTableHeaderCell>
                   <CTableHeaderCell className="bg-body-tertiary text-center">Balance</CTableHeaderCell>
@@ -184,34 +187,54 @@ const User = () => {
               </CTableHead>
               <CTableBody>
                 {/* Render rows dynamically from userData */}
-                {userData.map((user) => (
+                {
+                 userData.length > 0 ? (
+                userData.map((user) => (
                   <CTableRow key={user.userId}>
                     <CTableDataCell className="text-center">{user?.userId}</CTableDataCell>
                     <CTableDataCell className="text-center">
-                      {user?.name}
+  {user?.name && user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+</CTableDataCell>
+                    <CTableDataCell className="text-center">
+                      {user?.referralCode}
                     </CTableDataCell>
-                    <CTableDataCell className="text-center">{user?.email}</CTableDataCell>
+                    <CTableDataCell className="text-center">
+                      {user?.parentReferralCode ? user?.parentReferralCode :  "NA"}
+                    </CTableDataCell>
+                    <CTableDataCell  style={{
+          overflow: 'hidden',
+        }} className="text-center">{user?.email}</CTableDataCell>
                     <CTableDataCell className="text-center">{user?.mobile}</CTableDataCell>
                     <CTableDataCell className="text-center">{user?.winningBalance}</CTableDataCell>
                     <CTableDataCell className="text-center">
                       {(user?.status ==='ACTIVE') ? 'Active' : 'Deactive'}
                     </CTableDataCell>
-                    <CTableDataCell className="text-center">
-                        <CButton onClick={() => handleStatusChange(user._id, user?.status)}>{user?.status === 'ACTIVE' ? 'Deactive' : 'Active'}</CButton>
-                      </CTableDataCell>
                     {/* <CTableDataCell className="text-center">
-                      <CFormSwitch
-                        label={`${user.status ? 'Active' : 'Deactive'}`}
-                        id={`formSwitchCheckChecked-${user.userId}`}
-                        defaultChecked={user.status}
-                        onChange={() => handleSwitchChange(user.userId)}
-                      /> */}
+                        <CButton onClick={() => handleStatusChange(user._id, user?.status)}>{user?.status === 'ACTIVE' ? 'Deactive' : 'Active'}</CButton>
+                      </CTableDataCell> */}
+                    <CTableDataCell className="text-center">
+  <CButton 
+    onClick={() => handleStatusChange(user._id, user?.status)} 
+    style={{
+      backgroundColor: user?.status === 'ACTIVE' ? 'green' : 'red',
+      color: 'white' // add this to make the text visible
+    }}
+  >
+    {user?.status === 'ACTIVE' ? 'Deactive' : 'Active'}
+  </CButton>
+</CTableDataCell>
                      
                     <CTableDataCell className="text-center">
   <CButton onClick={() => handleUserDetail(user._id)}>View</CButton>
 </CTableDataCell>
                   </CTableRow>
-                ))}
+                )) ) : (
+                  <CTableRow>
+                    <CTableDataCell colSpan={6} className="text-center">
+                      No bets record found.
+                    </CTableDataCell>
+                  </CTableRow>
+                )}
               </CTableBody>
             </CTable>
           </CCardBody>

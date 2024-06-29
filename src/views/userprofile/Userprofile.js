@@ -35,6 +35,10 @@ const Userprofile = () => {
   const [email, setEmail] = useState('');
   const [mobile, setmobile] = useState('');
   const [winningBalance, setwinningBalance] = useState('');
+  const [referralCode , setReferralCode] = useState('');
+  const [parentReferralCode , setParentReferralCode] = useState('');
+
+
 
  
   console.log(id);
@@ -65,6 +69,8 @@ const Userprofile = () => {
       setUserId(response?.userId)
       setwinningBalance(response?.winningBalance)
       setUserBetsData(response?.bets);
+      setReferralCode(response?.referralCode);
+      setParentReferralCode(response?.parentReferralCode);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -144,16 +150,30 @@ const Userprofile = () => {
 
   />
 </CCol>
-      {/* <CCol xs={3}>
+
+<CCol xs={3}>
         <CWidgetStatsF
           className="mb-3"
           color="primary"
-          icon={<CImage src={balanceImage} alt="Balance Icon" width={24} height={24} />}
+          icon={<CImage src={nameImage} alt="Icon" width={24} height={24} />}
           padding={false}
-          title="Balance"
-          value="₹8000"
+          value={<div><span className="text-dark">Referral Code</span><br /><span>{referralCode}</span></div>}
+
+          
         />
-      </CCol> */}
+        </CCol>
+        <CCol xs={3}>
+        <CWidgetStatsF
+          className="mb-3"
+          color="primary"
+          icon={<CImage src={nameImage} alt="Icon" width={24} height={24} />}
+          padding={false}
+          value={<div><span className="text-dark">Referred By</span><br /><span>{parentReferralCode? parentReferralCode : "NA" }</span></div>}
+
+          
+        />
+        </CCol>
+   
     </CRow> 
     <CRow>
       <CCol xs={12}>
@@ -206,7 +226,7 @@ const Userprofile = () => {
   ) : (
     <CTableRow>
       <CTableDataCell colSpan={6} className="text-center">
-        No bets record found.
+        No record found.
       </CTableDataCell>
     </CTableRow>
   )}
