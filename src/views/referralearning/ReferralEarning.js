@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { Dropdown } from 'react-bootstrap';
 import {
   CWidgetStatsF,
   CCard,
@@ -16,7 +17,7 @@ import {
   CFormSwitch,
 } from '@coreui/react'
 import { useLocation } from 'react-router-dom'
-import { userDeatil } from '../../endpoints'
+import { ReferralEarningDeatil, userDeatil } from '../../endpoints'
 import { useNavigate } from 'react-router-dom'
 
 import userImage from '../../assets/images/new/user.svg'
@@ -36,10 +37,13 @@ const Userprofile = () => {
   const [winningBalance, setwinningBalance] = useState('')
   const [referralCode, setReferralCode] = useState('')
   const [parentReferralCode, setParentReferralCode] = useState('')
+  const [earningData, setUserEarningData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [userInfo, setUserInfo] = useState({})
+  const [userParentInfo, setParentUserInfo] = useState({})
   const [responseStatus, setResponseStatus] = useState(false)
 
-  const [userData, setUserBetsData] = useState([])
-  const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -54,45 +58,27 @@ const Userprofile = () => {
       if (!id) {
         return false
       }
-      const response = await userDeatil(id)
+      const response = await ReferralEarningDeatil(id)
+      console.log({response})
+     
       setResponseStatus(response?.meta?.status)
+      setUserEarningData(response?.data[0]?.childUsers)
+      setUserInfo(response?.data[0])
 
+      console.log(response)
+      // setUserInfo(response1.data[0].user)
 
-      setEmail(response?.email)
-      setName(response?.name)
-      setmobile(response?.mobile)
-      setUserId(response?.userId)
-      setwinningBalance(response?.winningBalance)
-      setUserBetsData(response?.bets)
-      setReferralCode(response?.referralCode)
-      setParentReferralCode(response?.parentReferralCode)
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {
       setLoading(false)
     }
   }
-
   return (
     <div>
      { id && responseStatus ? <>
       {!loading ?
-      <CRow>
-        <CCol xs={3}>
-          <CWidgetStatsF
-            className="mb-3"
-            color="primary"
-            icon={<CImage src={userImage} alt="User Icon" width={24} height={24} />}
-            padding={false}
-            value={
-              <div>
-                <span className="text-dark">User Id</span>
-                <br />
-                <span>{userId}</span>
-              </div>
-            }
-          />
-        </CCol>
+       <CRow>
         <CCol xs={3}>
           <CWidgetStatsF
             className="mb-3"
@@ -103,7 +89,7 @@ const Userprofile = () => {
               <div>
                 <span className="text-dark">Name</span>
                 <br />
-                <span>{name && name.charAt(0).toUpperCase() + name.slice(1)}</span>
+                <span>{userInfo.name}</span>
               </div>
             }
           />
@@ -119,7 +105,7 @@ const Userprofile = () => {
               <div>
                 <span className="text-dark">Mobile Number</span>
                 <br />
-                <span>{mobile}</span>
+                <span>{userInfo.mobile}</span>
               </div>
             }
           />
@@ -132,7 +118,7 @@ const Userprofile = () => {
             padding={false}
             value={
               <div>
-                <span className="text-dark">Winning Balance</span>
+                <span className="text-dark">Referral earning</span>
                 <br />
                 <span
                   style={{
@@ -143,7 +129,7 @@ const Userprofile = () => {
                     display: 'block',
                   }}
                 >
-                  {winningBalance}
+                  {userInfo.totalEarnings}
                 </span>
               </div>
             }
@@ -168,7 +154,7 @@ const Userprofile = () => {
                     display: 'block',
                   }}
                 >
-                  {email}
+                  {userInfo.email}
                 </span>
               </div>
             }
@@ -185,12 +171,12 @@ const Userprofile = () => {
               <div>
                 <span className="text-dark">Referral Code</span>
                 <br />
-                <span>{referralCode}</span>
+                <span>{userInfo.referralCode}</span>
               </div>
             }
           />
         </CCol>
-        <CCol xs={3}>
+        {/* <CCol xs={3}>
           <CWidgetStatsF
             className="mb-3"
             color="primary"
@@ -204,17 +190,20 @@ const Userprofile = () => {
               </div>
             }
           />
-        </CCol>
+        </CCol> */}
       </CRow>
-  :<p>Loading...</p>
-}
-</> : <></>}
+       :<p>Loading...</p>
+    }
+    </> : <></>}
+
+    
       <CRow>
         <CCol xs={12}>
           {/* Table Section */}
           <CCard className="mb-4">
             <CCardBody>
-              <h5>Bets</h5>
+              <h5>Referral Transaction
+              </h5>
               <div className="text-end">
                 <button className="btn btn-primary mb-2" onClick={() => navigate(-1)}>
                   Back
@@ -223,67 +212,92 @@ const Userprofile = () => {
               <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead className="text-nowrap">
                   <CTableRow>
+                    {/* <CTableHeaderCell className="bg-body-tertiary text-center">
+                      Total Earning
+                    </CTableHeaderCell> */}
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Slot Name
+                      User Name
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Bets No
+                      User Id
+                    </CTableHeaderCell>
+
+                    <CTableHeaderCell className="bg-body-tertiary text-center">
+                      Level
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Amount
+                      Profit
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Winning Number
+                      Recharge Amount
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Winning Amount
+                      Referral Code
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Status
+                      Referred To
                     </CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary text-center">Created At</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {responseStatus && typeof userData !== 'undefined' && userData.length > 0 ? (
-                    userData.map((data) => (
-                      <CTableRow key={data._id}>
+                  {responseStatus &&
+                  typeof earningData !== 'undefined' &&
+                  earningData.length > 0 ? (
+                    earningData.map((earningData, index) => (
+                      <CTableRow key={index}>
+                        
                         <CTableDataCell className="text-center">
-                          {data?.slot?.slotName}
+                          <a
+                            className="btn-link"
+                            style={{ cursor: 'pointer', textDecoration: 'none' }}
+                          >
+                            {earningData?.name &&
+                              earningData?.name.charAt(0).toUpperCase() +
+                                earningData?.name.slice(1)}
+                          </a>
                         </CTableDataCell>
                         <CTableDataCell className="text-center">
                           <a
                             className="btn-link"
                             style={{ cursor: 'pointer', textDecoration: 'none' }}
                           >
-                            {data.number}
+                            {earningData?.userId}
                           </a>
                         </CTableDataCell>
-                        <CTableDataCell className="text-center">{data.amount}</CTableDataCell>
-                        {/* <CTableDataCell className="text-center">{data.status}</CTableDataCell> */}
+
+      
                         <CTableDataCell className="text-center">
-                          {data.winningNumber ? data.winningNumber : 'NA'}
+                          {earningData?.level}
                         </CTableDataCell>
                         <CTableDataCell className="text-center">
-                          {data.winningAmount}
+                          {earningData?.profit}
                         </CTableDataCell>
 
-                        <CTableDataCell className="text-center">{data.status}</CTableDataCell>
-
-                        {/* <CTableDataCell className="text-center">
-          <CFormSwitch
-            label={`${data.status ? 'Active' : 'Deactive'}`}
-            id={`formSwitchCheckChecked-${user._id}`}
-            defaultChecked={user.active}
-          />
-        </CTableDataCell> */}
+                        <CTableDataCell className="text-center">
+                          {earningData.amount}
+                        </CTableDataCell>
+                        <CTableDataCell className="text-center">
+                          {earningData?.referralCode}
+                        </CTableDataCell>
+                        <CTableDataCell className="text-center">
+                          {earningData?.parentReferralCode
+                            ? earningData?.parentReferralCode
+                            : 'NA'}
+                        </CTableDataCell>
+                        <CTableDataCell className="text-center">
+                          {new Date(earningData?.createdAt).toLocaleString()}
+                        </CTableDataCell>
                       </CTableRow>
+
+                      
                     ))
                   ) : (
                     <CTableRow>
-                      <CTableDataCell colSpan={6} className="text-center">
-                        No record found.
-                      </CTableDataCell>
-                    </CTableRow>
+                    <CTableDataCell colSpan={6} className="text-center">
+                      No record found.
+                    </CTableDataCell>
+                  </CTableRow>
                   )}
                 </CTableBody>
               </CTable>

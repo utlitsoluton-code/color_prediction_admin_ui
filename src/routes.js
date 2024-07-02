@@ -6,6 +6,8 @@ const Login = React.lazy(() => import('./views/login/Login'))
 const User = React.lazy(() => import('./views/user/User'));
 const Slotlist = React.lazy(() => import('./views/slotlist/Slotlist'))
 const UserProfile = React.lazy(() => import('./views/userprofile/Userprofile'))
+const ReferralEarning = React.lazy(() => import('./views/referralearning/ReferralEarning'))
+
 const AddSlot = React.lazy(() => import('./views/slot/AddSlot'))
 const SlotDetail = React.lazy(() => import('./views/slotdetail/Slotdetail'))
 // Notifications
@@ -20,6 +22,8 @@ const routes = [
    { path: '/slotlist', name: 'Slotlist', element: Slotlist },
    { path: '/slot-detail', name: 'SlotDetail', element: SlotDetail },
    { path: '/userprofile/:id', name: 'UserProfile', element: UserProfile },
+   { path: '/referralearning/:id', name: 'ReferralEarning', element: ReferralEarning },
+
    { path: '/slot', name: 'AddSlot', element: AddSlot }
  
 ]
